@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Air We Inherit — West Oakland &amp; the Legacy of Redlining</title>
+  <meta name="description" content="A data-driven scrollytelling investigation of environmental injustice in West Oakland: how historical redlining shapes who breathes diesel today." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+  <!-- Drifting wind streaks — a fixed atmospheric layer behind all content -->
+  <div class="wind-layer" aria-hidden="true">
+    <svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+      <g class="wind-a">
+        <path d="M -100 180 Q 400 120, 800 200 T 1700 160" />
+        <path d="M -100 230 Q 400 170, 800 250 T 1700 220" />
+        <path d="M -100 360 Q 500 280, 900 380 T 1700 340" />
+        <path d="M -100 640 Q 500 580, 900 660 T 1700 620" />
+      </g>
+      <g class="wind-b">
+        <path d="M -100 420 Q 400 360, 800 440 T 1700 410" />
+        <path d="M -100 760 Q 500 700, 900 780 T 1700 750" />
+      </g>
+      <g class="wind-c">
+        <path d="M -100 520 Q 400 460, 800 540 T 1700 500" />
+        <path d="M -100 840 Q 500 780, 900 860 T 1700 830" />
+      </g>
+    </svg>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- HERO -->
+  <!-- ============================================ -->
+  <section class="hero" id="hero">
+    <div class="hero__inner">
+      <p class="eyebrow">An environmental justice investigation</p>
+      <h1 class="hero__title">The Air <em>We</em> Inherit</h1>
+      <p class="hero__lede">
+        In West Oakland, the line between who breathes clean and who breathes diesel
+        was drawn on a map eighty years ago — and never erased.
+      </p>
+      <div class="hero__scroll">scroll to begin ↓</div>
+    </div>
+    <div class="hero__bg" aria-hidden="true"></div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- CHAPTER 1: THE PLACE -->
+  <!-- ============================================ -->
+  <section class="chapter" id="chapter-place">
+    <div class="chapter__header">
+      <span class="chapter__num">Chapter 1</span>
+      <h2>A neighborhood at the mouth of the port</h2>
+    </div>
+    <div class="prose">
+      <p>
+        West Oakland sits where three freeways, a major rail corridor, and the Port
+        of Oakland converge. About <strong>25,000 people</strong> live here across
+        roughly seven square miles <a class="cite" href="https://ww2.arb.ca.gov/capp/com/cip/west-oakland" target="_blank" rel="noopener">(CARB)</a> — a
+        community that is predominantly Black, Latino, and Asian, with a poverty
+        rate more than double that of non-redlined Oakland tracts
+        <a class="cite" href="https://oehha.ca.gov/calenviroscreen/report/calenviroscreen-40" target="_blank" rel="noopener">(CalEnviroScreen 4.0)</a>.
+      </p>
+      <p>
+        About <strong>7,000 diesel trucks</strong> move in and out of the Port of
+        Oakland each day, one of the ten busiest container ports in the United States
+        <a class="cite" href="https://www.baaqmd.gov/~/media/files/planning-and-research/care-program/final-west-oakland-truck-survey-report-dec-2009.pdf" target="_blank" rel="noopener">(BAAQMD West Oakland Truck Survey)</a>.
+        A 2008 CARB health risk assessment found that residents breathe diesel
+        particulate matter at nearly <strong>three times</strong> the average Bay
+        Area background level — and truck traffic accounts for about 71% of that risk
+        <a class="cite" href="https://ww2.arb.ca.gov/capp/com/cip/west-oakland" target="_blank" rel="noopener">(CARB)</a>.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- CHAPTER 2: HISTORICAL REDLINING -->
+  <!-- ============================================ -->
+  <section class="chapter" id="chapter-redlining">
+    <div class="chapter__header">
+      <span class="chapter__num">Chapter 2</span>
+      <h2>Lines drawn in 1937</h2>
+    </div>
+    <div class="prose">
+      <p>
+        In the 1930s, the federal Home Owners' Loan Corporation (HOLC) graded
+        neighborhoods across American cities. Areas deemed "hazardous" — shaded red
+        on the maps — were overwhelmingly Black, immigrant, and working-class.
+        Lenders used these maps to deny mortgages for decades.
+      </p>
+      <p>
+        West Oakland was almost entirely redlined. The policy didn't just block
+        wealth-building; it marked which neighborhoods could be safely cut through
+        by freeways, zoned for heavy industry, and ignored when pollution
+        complaints were filed.
+      </p>
+    </div>
+
+    <!-- Demographic comparison chart -->
+    <div class="viz">
+      <h3 class="viz__title">Visualization 2 — Redlined vs. non-redlined Oakland today</h3>
+      <p class="viz__caption">
+        95 Oakland-area census tracts joined to 1937 HOLC grades. Redlined = HOLC
+        C or D; non-redlined = A or B. Values are population-weighted means across
+        tracts, drawn from CalEnviroScreen 4.0 and ACS 2015-2019.
+      </p>
+      <div class="chart-grid">
+        <div class="chart-card"><canvas id="chart-race" aria-label="Racial composition chart"></canvas></div>
+        <div class="chart-card"><canvas id="chart-income" aria-label="Median income chart"></canvas></div>
+        <div class="chart-card"><canvas id="chart-pollution" aria-label="Pollution burden chart"></canvas></div>
+      </div>
+
+      <div class="burden-plot">
+        <h4 class="burden-plot__title">Every Oakland tract, plotted by its 1937 grade</h4>
+        <p class="burden-plot__subtitle">
+          The redlined / non-redlined split isn't two blobs — it's a ladder.
+          Each dot is one census tract; thick bar is the median, box spans the
+          middle 50%.
+        </p>
+        <div class="burden-plot__chart">
+          <svg id="burden-svg" viewBox="0 0 960 420" preserveAspectRatio="xMidYMid meet"
+               aria-label="Scatter plot of CalEnviroScreen pollution-burden percentile by 1937 HOLC grade"></svg>
+        </div>
+        <p class="viz__caption">
+          Sources: <a href="https://oehha.ca.gov/calenviroscreen/report/calenviroscreen-40" target="_blank" rel="noopener">CalEnviroScreen 4.0</a> × <a href="https://dsl.richmond.edu/panorama/redlining/" target="_blank" rel="noopener">Mapping Inequality</a>. Tract-centroid containment; 29 tracts that fell outside every HOLC polygon are excluded.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- CHAPTER 3: SPATIAL OVERLAY MAP -->
+  <!-- ============================================ -->
+  <section class="chapter chapter--map" id="chapter-map">
+    <div class="chapter__header">
+      <span class="chapter__num">Chapter 3</span>
+      <h2>The past, overlaid on the present</h2>
+    </div>
+    <div class="prose">
+      <p>
+        Toggle the layers below. The red polygons are the 1937 HOLC "hazardous"
+        grades. The heatmap underneath is today's CalEnviroScreen pollution burden
+        score. Watch where they fall on top of each other.
+      </p>
+    </div>
+
+    <div class="viz">
+      <h3 class="viz__title">Visualization 1 — Spatial overlay: redlining × pollution burden</h3>
+      <div class="map-controls">
+        <label><input type="checkbox" id="toggle-redlining" checked /> 1937 HOLC redlining</label>
+        <label><input type="checkbox" id="toggle-pollution" checked /> CalEnviroScreen pollution burden</label>
+        <label><input type="checkbox" id="toggle-port" checked /> Port of Oakland &amp; truck corridors</label>
+      </div>
+      <div id="map" role="region" aria-label="Interactive map of West Oakland"></div>
+      <p class="viz__caption">
+        Sources: <a href="https://dsl.richmond.edu/panorama/redlining/" target="_blank" rel="noopener">Mapping Inequality (Richmond DSL)</a>,
+        <a href="https://oehha.ca.gov/calenviroscreen/report/calenviroscreen-40" target="_blank" rel="noopener">CalEnviroScreen 4.0 (OEHHA)</a>.
+        Click any tract for its percentile and population.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- CHAPTER 4: BREATHING TIMELINE -->
+  <!-- ============================================ -->
+  <section class="chapter chapter--dark" id="chapter-breathing">
+    <div class="chapter__header">
+      <span class="chapter__num">Chapter 4</span>
+      <h2>A timeline that breathes</h2>
+    </div>
+    <div class="prose">
+      <p>
+        Asthma ED visits in West Oakland have fallen sharply as cleaner-truck
+        rules, AB 617 Community Action Plans, and drayage turnover took effect —
+        while still running nearly twice the Alameda County rate. Below, each year's
+        rate is rendered as a breath: the peaks expand, the valleys contract.
+      </p>
+    </div>
+
+    <div class="viz">
+      <h3 class="viz__title">Visualization 3 — The Breathing Timeline</h3>
+      <div class="breathing" id="breathing">
+        <svg id="breathing-svg" viewBox="0 0 1200 300" preserveAspectRatio="none" aria-label="Asthma ED visit rates, West Oakland, 2013–2023"></svg>
+        <div class="breathing__labels" id="breathing-labels"></div>
+      </div>
+      <p class="viz__caption">
+        Asthma-related ED visits per 10,000 residents, ZIP 94607 + 94608 averaged.
+        Source: <a href="https://data.chhs.ca.gov/dataset/asthma-emergency-department-visit-rates" target="_blank" rel="noopener">CDPH / HCAI, 2013–2023</a>.
+        Rates pre-Oct 2015 (ICD-9) are not directly comparable with 2016+ (ICD-10);
+        2020 reflects pandemic-era ED avoidance; 2021-2022 suppressed at source.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- CHAPTER 5: LUNGS COMPARISON -->
+  <!-- ============================================ -->
+  <section class="chapter" id="chapter-lungs">
+    <div class="chapter__header">
+      <span class="chapter__num">Chapter 5</span>
+      <h2>Two neighborhoods, two lungs</h2>
+    </div>
+    <div class="prose">
+      <p>
+        The animation below shows a healthy breath cycle beside one labored by
+        chronic exposure to diesel particulate matter. Both figures breathe at the
+        same rate — but the right lung fills less, and takes longer to empty.
+      </p>
+    </div>
+
+    <div class="viz lungs">
+      <figure class="lung lung--clean">
+        <div class="lung__scene">
+          <svg class="lung__svg" viewBox="0 0 200 260" aria-label="Healthy lungs"></svg>
+        </div>
+        <figcaption>
+          <strong>Non-redlined Oakland</strong><br />
+          Pollution burden: <span class="low">23rd percentile</span> (statewide)<br />
+          Asthma ED visits (2019): <span class="low">~46/10k</span>
+        </figcaption>
+      </figure>
+      <figure class="lung lung--burdened">
+        <div class="lung__scene">
+          <svg class="lung__svg" viewBox="0 0 200 260" aria-label="Pollution-burdened lungs"></svg>
+        </div>
+        <figcaption>
+          <strong>West Oakland (94607)</strong><br />
+          Pollution burden: <span class="high">90th+ percentile</span> (statewide)<br />
+          Asthma ED visits (2019): <span class="high">~94/10k — about 2× Alameda County</span>
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- CHAPTER 6: NATIONAL CONTEXT -->
+  <!-- ============================================ -->
+  <section class="chapter chapter--dark" id="chapter-flint">
+    <div class="chapter__header">
+      <span class="chapter__num">Chapter 6</span>
+      <h2>This pattern isn't local</h2>
+    </div>
+    <div class="prose">
+      <p>
+        In Flint, Michigan, a cost-cutting decision by state emergency managers
+        exposed a majority-Black city to lead-poisoned drinking water for eighteen
+        months before officials acknowledged it. Residents had been reporting the
+        problem since day one.
+      </p>
+      <p>
+        West Oakland and Flint are not the same story — one is about air, the other
+        water; one unfolds slowly, the other was abrupt. But they rhyme. In both,
+        regulators failed the communities least able to escape the harm. In both,
+        the people most exposed were the last to be believed.
+      </p>
+      <p>
+        Environmental injustice is rarely an accident of geography. It is the
+        downstream effect of decisions — about zoning, investment, and whose
+        complaints get taken seriously — that accumulate across generations.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- CHAPTER 7: WHAT NOW -->
+  <!-- ============================================ -->
+  <section class="chapter" id="chapter-action">
+    <div class="chapter__header">
+      <span class="chapter__num">Chapter 7</span>
+      <h2>What the community is already doing</h2>
+    </div>
+    <div class="prose">
+      <p>
+        The West Oakland Environmental Indicators Project (WOEIP), founded in 2002
+        by longtime residents, has spent two decades collecting block-by-block air
+        monitoring data, negotiating with the Port of Oakland, and pushing the Bay
+        Area Air Quality Management District to treat neighborhood-scale exposure
+        as a first-class problem.
+      </p>
+      <p>
+        In 2019, their Community Action Plan under California's AB 617 became one
+        of the first in the state. Truck idling limits, zero-emission drayage
+        timelines, and real-time air sensors all grew from community organizing
+        long before the state wrote the rules.
+      </p>
+      <div class="cta-row">
+        <a class="cta" href="https://woeip.org" target="_blank" rel="noopener">Learn more about WOEIP →</a>
+        <a class="cta cta--ghost" href="#sources">Our data &amp; methods →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- SOURCES / METHODS -->
+  <!-- ============================================ -->
+  <section class="chapter chapter--compact" id="sources">
+    <div class="chapter__header">
+      <span class="chapter__num">Appendix</span>
+      <h2>Sources &amp; methods</h2>
+    </div>
+    <div class="prose prose--columns">
+      <div>
+        <h4>Data sources</h4>
+        <ul>
+          <li><a href="https://dsl.richmond.edu/panorama/redlining/" target="_blank" rel="noopener"><strong>Mapping Inequality (Richmond DSL)</strong></a> — 1937 HOLC redlining polygons.</li>
+          <li><a href="https://oehha.ca.gov/calenviroscreen/report/calenviroscreen-40" target="_blank" rel="noopener"><strong>CalEnviroScreen 4.0</strong></a> — pollution burden &amp; population characteristics by census tract.</li>
+          <li><a href="https://www.census.gov/programs-surveys/acs" target="_blank" rel="noopener"><strong>U.S. Census ACS 5-Year</strong></a> — race, income, and demographic detail.</li>
+          <li><a href="https://woeip.org" target="_blank" rel="noopener"><strong>WOEIP</strong></a> — community-collected air monitoring data and narrative context.</li>
+          <li><a href="https://data.chhs.ca.gov/dataset/asthma-emergency-department-visit-rates" target="_blank" rel="noopener"><strong>CDPH / HCAI</strong></a> — asthma-related ED visits and hospitalization rates.</li>
+          <li><a href="https://www.portofoakland.com" target="_blank" rel="noopener"><strong>Port of Oakland</strong></a> — truck-count and emissions inventory reports.</li>
+          <li><a href="https://ww2.arb.ca.gov/capp/com/cip/west-oakland" target="_blank" rel="noopener"><strong>CARB Community Air Protection — West Oakland</strong></a> — Community Action Plan, population, and truck-traffic risk estimates.</li>
+          <li><a href="https://www.baaqmd.gov/~/media/files/planning-and-research/care-program/final-west-oakland-truck-survey-report-dec-2009.pdf" target="_blank" rel="noopener"><strong>BAAQMD West Oakland Truck Survey (2009)</strong></a> — daily truck counts and corridor flows.</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Methods</h4>
+        <ul>
+          <li>HOLC polygons (<a href="https://dsl.richmond.edu/panorama/redlining/data/CA-Oakland" target="_blank" rel="noopener">CAOakland1937 GeoJSON</a>) spatially joined to 2010 census tracts by tract-centroid containment.</li>
+          <li>Redlined = HOLC C or D; non-redlined = A or B. Race, poverty, and pollution-burden percentile are population-weighted means across the tracts in each bucket.</li>
+          <li>Median income pulled from ACS 5-Year 2015-2019, table <code>B19013_001E</code>, via the Census Bureau API.</li>
+          <li>Breathing timeline = mean of asthma ED visit rates for ZIP 94607 and 94608 per year (CDPH / HCAI 2013-2023).</li>
+          <li>Pollution overlay on the map = CalEnviroScreen 4.0 tract polygons; color is statewide pollution-burden percentile.</li>
+          <li>All processing is in this repo; <code>data/</code> holds the exported JSON the page reads.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>Built with community-led data. West Oakland, Oakland, California.</p>
+  </footer>
+
+  <!-- Libraries -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+  <!-- App -->
+  <script src="js/scroll.js"></script>
+  <script src="js/map.js"></script>
+  <script src="js/charts.js"></script>
+  <script src="js/burden.js"></script>
+  <script src="js/breathing.js"></script>
+  <script src="js/lungs.js"></script>
+</body>
+</html>

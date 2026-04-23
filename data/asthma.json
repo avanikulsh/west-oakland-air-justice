@@ -1,0 +1,18 @@
+{
+  "_meta": {
+    "source": "California Department of Public Health / HCAI — Asthma Emergency Department Visit Rates by ZIP Code, All Ages, 2013-2023 (rates per 10,000 residents, age-adjusted).",
+    "geography": "West Oakland: mean of ZIP codes 94607 and 94608 (visit counts kept for reference).",
+    "note": "Diagnostic coding changed from ICD-9 (493) to ICD-10 (J45) on 2015-10-01; CDPH advises against directly comparing rates across that boundary. The 2020 drop reflects pandemic-era ED avoidance. 2021-2022 were not published for these ZIPs at release time."
+  },
+  "series": [
+    { "label": "2013", "rate": 134.2, "visits": { "94607": 382, "94608": 318 } },
+    { "label": "2014", "rate": 132.8, "visits": { "94607": 367, "94608": 308 } },
+    { "label": "2015", "rate": 121.6, "visits": { "94607": 323, "94608": 332 } },
+    { "label": "2016", "rate": 103.5, "visits": { "94607": 317, "94608": 242 } },
+    { "label": "2017", "rate": 103.2, "visits": { "94607": 298, "94608": 260 } },
+    { "label": "2018", "rate": 88.1,  "visits": { "94607": 265, "94608": 214 } },
+    { "label": "2019", "rate": 87.5,  "visits": { "94607": 250, "94608": 220 } },
+    { "label": "2020", "rate": 46.8,  "visits": { "94607": 159, "94608": 132 } },
+    { "label": "2023", "rate": 52.0,  "visits": { "94607": 236, "94608": 170 } }
+  ]
+}

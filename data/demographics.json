@@ -1,0 +1,54 @@
+{
+  "race": {
+    "redlined": {
+      "black": 20.3,
+      "latino": 27.3,
+      "asian": 18.5,
+      "white": 28.3,
+      "other": 5.6
+    },
+    "nonRedlined": {
+      "black": 14.2,
+      "latino": 14.2,
+      "asian": 13.9,
+      "white": 51.7,
+      "other": 6.0
+    }
+  },
+  "income": {
+    "redlined": 68653,
+    "nonRedlined": 134289
+  },
+  "pollutionBurdenPercentile": {
+    "redlined": 59.5,
+    "nonRedlined": 23.4
+  },
+  "dieselPM_ugm3": {
+    "redlined": 0.396,
+    "nonRedlined": 0.241
+  },
+  "asthmaEDrate_per10k": {
+    "redlined": 99.1,
+    "nonRedlined": 57.0
+  },
+  "povertyPct": {
+    "redlined": 36.9,
+    "nonRedlined": 16.1
+  },
+  "_meta": {
+    "sources": [
+      "CalEnviroScreen 4.0 (OEHHA, Oct 2021) \u2014 pollution burden percentile, diesel PM, asthma ED visits, ACS 2015-2019 race shares.",
+      "U.S. Census Bureau, ACS 5-Year 2015-2019, table B19013 \u2014 median household income.",
+      "Mapping Inequality, University of Richmond Digital Scholarship Lab (1937 Oakland HOLC residential-security map)."
+    ],
+    "method": "Oakland-area census tracts (2010 boundaries) classified by 1937 HOLC grade at tract centroid. Redlined = HOLC C (\"Declining\") or D (\"Hazardous\"); non-redlined = A (\"Best\") or B (\"Still Desirable\"). Tract-level values averaged, weighted by 2019 population.",
+    "tracts": {
+      "redlined": 68,
+      "nonRedlined": 27
+    },
+    "population": {
+      "redlined": 264957,
+      "nonRedlined": 108250
+    }
+  }
+}
