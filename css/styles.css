@@ -866,3 +866,122 @@ body > *:not(.wind-layer) { position: relative; z-index: 1; }
   color: var(--sky-bright);
   border-color: var(--sky-bright);
 }
+
+/* ================================================
+   VIZ GUIDE — how to read / legend / takeaway
+   ================================================ */
+.viz-guide {
+  margin-top: 1.25rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  background:
+    radial-gradient(ellipse at 0% 0%, rgba(164, 210, 234, 0.04), transparent 60%),
+    var(--bg-panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 1.25rem 1.25rem 1.1rem;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.viz-guide__col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.viz-guide__col + .viz-guide__col {
+  border-left: 1px solid var(--line);
+  padding-left: 1rem;
+}
+
+.viz-guide h4 {
+  margin: 0;
+  font-family: var(--type-display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--sky);
+  opacity: 0.85;
+}
+
+.viz-guide p,
+.viz-guide ul {
+  margin: 0;
+  font-family: var(--type-body);
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: var(--ink-soft);
+}
+
+.viz-guide ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.viz-guide__takeaway ul li {
+  position: relative;
+  padding-left: 0.95rem;
+}
+.viz-guide__takeaway ul li::before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--sky);
+  opacity: 0.8;
+}
+
+.viz-legend li {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.viz-legend .swatch {
+  flex: 0 0 auto;
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  background: var(--swatch, var(--ink-soft));
+  box-shadow: 0 0 8px var(--swatch, transparent);
+  opacity: 0.85;
+}
+.viz-legend .swatch--line {
+  width: 18px;
+  height: 3px;
+  border-radius: 2px;
+}
+.viz-legend .swatch--ring {
+  background: transparent;
+  border: 1.5px solid var(--swatch, var(--ink-soft));
+  box-shadow: none;
+}
+
+.viz-guide code {
+  font-family: var(--type-body);
+  font-size: 0.85em;
+  background: rgba(164, 210, 234, 0.08);
+  color: var(--sky-bright);
+  padding: 1px 5px;
+  border-radius: 3px;
+}
+
+@media (max-width: 760px) {
+  .viz-guide {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  .viz-guide__col + .viz-guide__col {
+    border-left: none;
+    border-top: 1px solid var(--line);
+    padding-left: 0;
+    padding-top: 0.9rem;
+  }
+}

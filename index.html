@@ -139,6 +139,34 @@
         <div class="chart-card"><canvas id="chart-pollution" aria-label="Pollution burden chart"></canvas></div>
       </div>
 
+      <div class="viz-guide" aria-label="How to read the bar-chart trio">
+        <div class="viz-guide__col viz-guide__how">
+          <h4>How to read</h4>
+          <p>
+            Three side-by-side comparisons. The left bar in each chart pools the
+            <strong>redlined</strong> tracts (1937 HOLC grades C &amp; D); the right
+            bar pools the <strong>non-redlined</strong> tracts (grades A &amp; B).
+            The race chart stacks five population shares to 100%. Income is in
+            dollars; pollution burden is a 0-100 statewide percentile (higher = worse).
+          </p>
+        </div>
+        <div class="viz-guide__col viz-guide__legend">
+          <h4>Legend</h4>
+          <ul class="viz-legend">
+            <li><span class="swatch" style="--swatch:#e2958e"></span>Redlined (HOLC C/D)</li>
+            <li><span class="swatch" style="--swatch:#9dc6a4"></span>Non-redlined (HOLC A/B)</li>
+          </ul>
+        </div>
+        <div class="viz-guide__col viz-guide__takeaway">
+          <h4>Takeaway</h4>
+          <ul>
+            <li>Redlined tracts are majority Black + Latino; non-redlined skew majority white.</li>
+            <li>Median income in redlined tracts is roughly <strong>half</strong> that of non-redlined.</li>
+            <li>Pollution burden is <strong>~60th percentile vs. ~23rd</strong> — the same neighborhoods graded "hazardous" in 1937.</li>
+          </ul>
+        </div>
+      </div>
+
       <div class="burden-plot">
         <h4 class="burden-plot__title">Every Oakland tract, plotted by its 1937 grade</h4>
         <p class="burden-plot__subtitle">
@@ -153,6 +181,38 @@
         <p class="viz__caption">
           Sources: <a href="https://oehha.ca.gov/calenviroscreen/report/calenviroscreen-40" target="_blank" rel="noopener">CalEnviroScreen 4.0</a> × <a href="https://dsl.richmond.edu/panorama/redlining/" target="_blank" rel="noopener">Mapping Inequality</a>. Tract-centroid containment; 29 tracts that fell outside every HOLC polygon are excluded.
         </p>
+
+        <div class="viz-guide" aria-label="How to read the burden-by-grade plot">
+          <div class="viz-guide__col viz-guide__how">
+            <h4>How to read</h4>
+            <p>
+              Each <strong>dot is one Oakland census tract</strong>, plotted
+              against its 1937 HOLC grade (left to right, A → D). The vertical
+              axis is today's CalEnviroScreen pollution-burden percentile (0 =
+              cleanest in California, 100 = most burdened). Inside each column:
+              the thick horizontal bar is the <strong>median</strong>, the box
+              is the <strong>middle 50%</strong> (25th-75th percentile), and
+              the thin whiskers reach the 10th-90th percentile.
+            </p>
+          </div>
+          <div class="viz-guide__col viz-guide__legend">
+            <h4>Legend</h4>
+            <ul class="viz-legend">
+              <li><span class="swatch" style="--swatch:#9dc6a4"></span>A — "Best"</li>
+              <li><span class="swatch" style="--swatch:#a4d2ea"></span>B — "Still Desirable"</li>
+              <li><span class="swatch" style="--swatch:#d9b77a"></span>C — "Declining"</li>
+              <li><span class="swatch" style="--swatch:#e2958e"></span>D — "Hazardous"</li>
+              <li><span class="swatch swatch--line" style="--swatch:#cfe7f3"></span>Median (thick bar)</li>
+            </ul>
+          </div>
+          <div class="viz-guide__col viz-guide__takeaway">
+            <h4>Takeaway</h4>
+            <ul>
+              <li>Every step down the grade pushes the median pollution percentile up.</li>
+              <li>D-graded tracts cluster near the top of the statewide burden distribution; A-graded tracts cluster near the bottom.</li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -184,6 +244,42 @@
         <a href="https://oehha.ca.gov/calenviroscreen/report/calenviroscreen-40" target="_blank" rel="noopener">CalEnviroScreen 4.0 (OEHHA)</a>.
         Click any tract for its percentile and population.
       </p>
+
+      <div class="viz-guide" aria-label="How to read the map">
+        <div class="viz-guide__col viz-guide__how">
+          <h4>How to read</h4>
+          <p>
+            Here, there are two layers overlaid. The <strong>redlining</strong>
+            layer paints the 1937 HOLC polygons in their original grade colors
+            (red = "hazardous"). The <strong>pollution burden</strong> layer
+            shades today's CalEnviroScreen tracts from green (low) to dark red
+            (high). The dashed coral line marks the main diesel truck corridor
+            from the Port. Use the checkboxes to toggle layers — leave both on
+            to see overlap. Click any shape for details.
+          </p>
+        </div>
+        <div class="viz-guide__col viz-guide__legend">
+          <h4>Legend</h4>
+          <ul class="viz-legend">
+            <li><span class="swatch swatch--ring" style="--swatch:#4a5c3a"></span>HOLC A — "Best"</li>
+            <li><span class="swatch swatch--ring" style="--swatch:#7a9f6b"></span>HOLC B — "Still Desirable"</li>
+            <li><span class="swatch swatch--ring" style="--swatch:#d9a34f"></span>HOLC C — "Declining"</li>
+            <li><span class="swatch swatch--ring" style="--swatch:#a33b1e"></span>HOLC D — "Hazardous"</li>
+            <li><span class="swatch" style="--swatch:#4a5c3a"></span>Pollution burden: low (&lt;30th pct)</li>
+            <li><span class="swatch" style="--swatch:#d9a34f"></span>Pollution burden: mid (50-70th)</li>
+            <li><span class="swatch" style="--swatch:#4b0707"></span>Pollution burden: extreme (85th+)</li>
+            <li><span class="swatch swatch--line" style="--swatch:#e89b7f"></span>Port truck corridor</li>
+          </ul>
+        </div>
+        <div class="viz-guide__col viz-guide__takeaway">
+          <h4>Takeaway</h4>
+          <ul>
+            <li>The red 1937 polygons sit almost exactly on top of today's darkest pollution tracts.</li>
+            <li>The truck corridor cuts directly through the historically redlined core.</li>
+            <li>Most non-redlined neighborhoods sit in the green/yellow range.</li>
+          </ul>
+        </div>
+      </div>
     </div>
     <div class="prose">
       <p>
@@ -224,6 +320,35 @@ Although policy interventions have assisted undoing environmental harm, the heal
         Rates pre-Oct 2015 (ICD-9) are not directly comparable with 2016+ (ICD-10);
         2020 reflects pandemic-era ED avoidance; 2021-2022 suppressed at source.
       </p>
+
+      <div class="viz-guide" aria-label="How to read the breathing timeline">
+        <div class="viz-guide__col viz-guide__how">
+          <h4>How to read</h4>
+          <p>
+            Read left to right as a decade. Each year is plotted as a point on
+            the breath curve; the curve's <strong>height above and below the
+            dashed midline</strong> encodes that year's asthma ED visit rate per
+            10,000 residents. The taller the wave, the more visits. The whole
+            shape gently inhales and exhales on a 4-second loop.
+          </p>
+        </div>
+        <div class="viz-guide__col viz-guide__legend">
+          <h4>Legend</h4>
+          <ul class="viz-legend">
+            <li><span class="swatch" style="--swatch:#e2958e"></span>Peak (inhale) — visit rate above midline</li>
+            <li><span class="swatch" style="--swatch:#9dc6a4"></span>Trough (exhale) — mirrored below</li>
+            <li><span class="swatch swatch--ring" style="--swatch:#cfe7f3"></span>Annual data point (hover for value)</li>
+            <li><span class="swatch swatch--line" style="--swatch:rgba(168,204,226,0.6)"></span>Midline (zero amplitude)</li>
+          </ul>
+        </div>
+        <div class="viz-guide__col viz-guide__takeaway">
+          <h4>Takeaway</h4>
+          <ul>
+            <li>The wave shrinks over time: <strong>134/10k in 2013 → 52/10k in 2023.</li>
+            <li>Even at its lowest, the 2023 rate is still ~2× the Alameda County average.</li>
+          </ul>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -266,6 +391,36 @@ Both lungs are breathing at the same rate, but the one exposed to consistent die
           Asthma ED visits (2019): <span class="high">~94/10k — about 2× Alameda County</span>
         </figcaption>
       </figure>
+    </div>
+
+    <div class="viz-guide" aria-label="How to read the lung comparison">
+      <div class="viz-guide__col viz-guide__how">
+        <h4>How to read</h4>
+        <p>
+          Two animated lungs breathe at the same rate but absorb air
+          differently. The <strong>left lung</strong> represents a non-redlined
+          Oakland tract; the <strong>right lung</strong> represents redlined
+          ZIP 94607. Watch the rhythm: the burdened lung pulls in less air per
+          breath and expels it more slowly. Numbers under each figure show the underlying pollution-burden
+          percentile and asthma ED rate.
+        </p>
+      </div>
+      <div class="viz-guide__col viz-guide__legend">
+        <h4>Legend</h4>
+        <ul class="viz-legend">
+          <li><span class="swatch" style="--swatch:#9dc6a4"></span>Clean air (non-redlined Oakland, 23rd pct)</li>
+          <li><span class="swatch" style="--swatch:#e2958e"></span>Burdened air (West Oakland 94607, 90th+ pct)</li>
+          <li><span class="swatch swatch--ring" style="--swatch:#cfe7f3"></span>Lung outline — same breath rate on both sides</li>
+        </ul>
+      </div>
+      <div class="viz-guide__col viz-guide__takeaway">
+        <h4>Takeaway</h4>
+        <ul>
+          <li>One lung works against constant diesel exposure despite being in the same city with the same breath rate.</li>
+          <li>Pollution-burden percentile is <strong>~4× higher</strong> on the redlined side (90th vs. 23rd).</li>
+          <li>Asthma ED visits track that gap:~94/10k vs. ~46/10k</strong>, roughly double.</li>
+        </ul>
+      </div>
     </div>
   </section>
 
